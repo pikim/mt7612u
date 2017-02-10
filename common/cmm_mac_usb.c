@@ -144,8 +144,8 @@ VOID RTMPResetTxRxRingMemory(
 	}
 
 
-	/* Free Tx frame resource*/
-	for (acidx = 0; acidx < 4; acidx++)
+	/* Free Tx frame resource */
+	for (acidx = 0; acidx < NUM_OF_TX_RING; acidx++)
 	{
 		PHT_TX_CONTEXT pHTTXContext = &(pAd->TxContext[acidx]);
 		if (pHTTXContext && pHTTXContext->pUrb)
@@ -268,8 +268,8 @@ VOID	RTMPFreeTxRxRingMemory(
 		kfree(pAd->MgmtDescRing.AllocVa);
 
 
-	/* Free Tx frame resource*/
-	for (acidx = 0; acidx < 4; acidx++)
+	/* Free Tx frame resource */
+	for (acidx = 0; acidx < NUM_OF_TX_RING; acidx++)
 	{
 		PHT_TX_CONTEXT pHTTXContext = &(pAd->TxContext[acidx]);
 		if (pHTTXContext)
@@ -381,7 +381,7 @@ int NICInitTransmit(
 	DBGPRINT(RT_DEBUG_TRACE, ("--> NICInitTransmit\n"));
 
 
-	/* Init 4 set of Tx parameters*/
+	/* Init set of Tx parameters */
 	for(acidx = 0; acidx < NUM_OF_TX_RING; acidx++)
 	{
 		/* Initialize all Transmit releated queues*/
@@ -396,9 +396,9 @@ int NICInitTransmit(
 	do
 	{
 
-		/* TX_RING_SIZE, 4 ACs*/
+		/* TX_RING_SIZE, x ACs */
 
-		for(acidx=0; acidx<4; acidx++)
+		for(acidx=0; acidx<NUM_OF_TX_RING; acidx++)
 		{
 			PHT_TX_CONTEXT	pHTTXContext = &(pAd->TxContext[acidx]);
 
@@ -555,9 +555,9 @@ int RTMPAllocTxRxRingMemory(
 		/* Init send data structures and related parameters*/
 
 
-		/* TX_RING_SIZE, 4 ACs*/
+		/* TX_RING_SIZE, x ACs*/
 
-		for(acidx=0; acidx<4; acidx++)
+		for(acidx=0; acidx<NUM_OF_TX_RING; acidx++)
 		{
 			PHT_TX_CONTEXT	pHTTXContext = &(pAd->TxContext[acidx]);
 
@@ -852,9 +852,9 @@ int NICInitTransmit(
 	do
 	{
 
-		/* TX_RING_SIZE, 4 ACs*/
+		/* TX_RING_SIZE, x ACs*/
 
-		for(acidx=0; acidx<4; acidx++)
+		for(acidx=0; acidx<NUM_OF_TX_RING; acidx++)
 		{
 			PHT_TX_CONTEXT	pHTTXContext = &(pAd->TxContext[acidx]);
 
@@ -1022,7 +1022,7 @@ err:
 
 
 	/* Tx Ring*/
-	for (acidx = 0; acidx < 4; acidx++)
+	for (acidx = 0; acidx < NUM_OF_TX_RING; acidx++)
 	{
 		PHT_TX_CONTEXT pHTTxContext = &(pAd->TxContext[acidx]);
 		if (pHTTxContext)
@@ -1208,7 +1208,7 @@ VOID	RTMPFreeTxRxRingMemory(
 
 
 	/* Free Tx frame resource*/
-	for (acidx = 0; acidx < 4; acidx++)
+	for (acidx = 0; acidx < NUM_OF_TX_RING; acidx++)
 		{
 		PHT_TX_CONTEXT pHTTXContext = &(pAd->TxContext[acidx]);
 			if (pHTTXContext)
