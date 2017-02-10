@@ -945,7 +945,7 @@ struct _RTMP_CHIP_OP_ {
 #ifdef CONFIG_ANDES_SUPPORT
 	void (*fw_init)(struct rtmp_adapter *ad);
 	int (*RandomWrite)(struct rtmp_adapter *ad, RTMP_REG_PAIR *RegPair, uint32_t Num);
-	void (*Calibration)(struct rtmp_adapter *pAd, uint32_t CalibrationID, ANDES_CALIBRATION_PARAM *param);
+	int (*Calibration)(struct rtmp_adapter *pAd, uint32_t CalibrationID, ANDES_CALIBRATION_PARAM *param);
 #endif /* CONFIG_ANDES_SUPPORT */
 	void (*DisableTxRx)(struct rtmp_adapter *ad, UCHAR Level);
 	void (*AsicRadioOn)(struct rtmp_adapter *ad, UCHAR Stage);
@@ -1258,7 +1258,7 @@ VOID RtmpChipBcnSpecInit(struct rtmp_adapter *pAd);
 VOID rlt_bcn_buf_init(struct rtmp_adapter *pAd);
 #endif /* RLT_MAC */
 
-VOID RtmpChipWriteHighMemory(
+VOID RtmpChipWriteMemory(
 	IN	struct rtmp_adapter *pAd,
 	IN	USHORT			Offset,
 	IN	uint32_t 		Value,

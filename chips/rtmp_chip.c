@@ -48,7 +48,7 @@ Return Value:
 Note:
 ========================================================================
 */
-VOID RtmpChipWriteHighMemory(
+VOID RtmpChipWriteMemory(
 	IN struct rtmp_adapter *pAd,
 	IN USHORT Offset,
 	IN uint32_t Value,

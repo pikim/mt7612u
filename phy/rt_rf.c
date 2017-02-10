@@ -168,9 +168,9 @@ int RT30xxWriteRFRegister(
 			else
 				IdRf--;
 
-				rfcsr.non_bank.RF_CSR_DATA = IdRf;
-				RTMP_IO_WRITE32(pAd, RF_CSR_CFG, rfcsr.word);
-				RtmpOsMsDelay(1);
+			rfcsr.non_bank.RF_CSR_DATA = IdRf;
+			RTMP_IO_WRITE32(pAd, RF_CSR_CFG, rfcsr.word);
+			RtmpOsMsDelay(1);
 		}
 	}
 

@@ -860,12 +860,15 @@ VOID CFG80211OS_ScanEnd(
 	IN BOOLEAN FlgIsAborted)
 {
 #ifdef CONFIG_STA_SUPPORT
+	struct cfg80211_scan_info Info;
+
 	CFG80211_CB *pCfg80211_CB = (CFG80211_CB *)pCB;
 	NdisAcquireSpinLock(&pCfg80211_CB->scan_notify_lock);
 	if (pCfg80211_CB->pCfg80211_ScanReq)
 	{
+		Info.aborted = FlgIsAborted;
 		CFG80211DBG(RT_DEBUG_ERROR, ("80211> cfg80211_scan_done\n"));
-		cfg80211_scan_done(pCfg80211_CB->pCfg80211_ScanReq, FlgIsAborted);
+		cfg80211_scan_done(pCfg80211_CB->pCfg80211_ScanReq, &Info);
 		pCfg80211_CB->pCfg80211_ScanReq = NULL;
 	}
 	else
@@ -972,7 +975,10 @@ void CFG80211OS_P2pClientConnectResultInform(
 
 BOOLEAN CFG80211OS_RxMgmt(IN struct net_device *pNetDev, IN int32_t freq, IN u8 *frame, IN uint32_t len)
 {
-	return cfg80211_rx_mgmt(pNetDev,
+	struct wireless_dev *pWdev;
+	pWdev = pNetDev->ieee80211_ptr;
+
+	return cfg80211_rx_mgmt(pWdev,
 				freq,
 				0,       //CFG_TODO return 0 in dbm
 				frame,
@@ -983,9 +989,9 @@ BOOLEAN CFG80211OS_RxMgmt(IN struct net_device *pNetDev, IN int32_t freq, IN u8 
 VOID CFG80211OS_TxStatus(IN struct net_device *pNetDev, IN int32_t cookie, IN u8 *frame, IN uint32_t len, IN BOOLEAN ack)
 {
 	struct wireless_dev *pWdev;
-	pWdev = pNetDev->ieee80211_ptr ;
+	pWdev = pNetDev->ieee80211_ptr;
 
-	return cfg80211_mgmt_tx_status(pNetDev, cookie, frame, len, ack, GFP_ATOMIC);
+	return cfg80211_mgmt_tx_status(pWdev, cookie, frame, len, ack, GFP_ATOMIC);
 }
 
 VOID CFG80211OS_NewSta(IN struct net_device *pNetDev, IN const u8 *mac_addr, IN const u8 *assoc_frame, IN uint32_t assoc_len)

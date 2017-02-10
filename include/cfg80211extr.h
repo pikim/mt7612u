@@ -205,7 +205,7 @@ VOID CFG80211DRV_OpsChangeBssParm(struct rtmp_adapter *pAdOrg, VOID *pData);
 VOID CFG80211_UnRegister(struct rtmp_adapter *pAdOrg,	VOID *pNetDev);
 
 INT CFG80211DRV_IoctlHandle(
-	struct rtmp_adapter				*pAdSrc,
+	struct rtmp_adapter			*pAdSrc,
 	RTMP_IOCTL_INPUT_STRUCT		*wrq,
 	INT							cmd,
 	USHORT						subcmd,
@@ -216,52 +216,52 @@ UCHAR CFG80211_getCenCh(struct rtmp_adapter *pAd, UCHAR prim_ch);
 
 /* CRDA Releatd */
 VOID CFG80211DRV_RegNotify(
-	struct rtmp_adapter				*pAdOrg,
+	struct rtmp_adapter			*pAdOrg,
 	VOID						*pData);
 
 VOID CFG80211_RegHint(
-	struct rtmp_adapter				*pAdCB,
+	struct rtmp_adapter			*pAdCB,
 	UCHAR						*pCountryIe,
 	ULONG						CountryIeLen);
 
 VOID CFG80211_RegHint11D(
-	struct rtmp_adapter				*pAdCB,
+	struct rtmp_adapter			*pAdCB,
 	UCHAR						*pCountryIe,
 	ULONG						CountryIeLen);
 
 VOID CFG80211_RegRuleApply(
-	struct rtmp_adapter				*pAdCB,
+	struct rtmp_adapter			*pAdCB,
 	VOID						*pWiphy,
 	UCHAR						*pAlpha2);
 
 BOOLEAN CFG80211_SupBandReInit(
-	struct rtmp_adapter				*pAdCB);
+	struct rtmp_adapter			*pAdCB);
 
 #ifdef RFKILL_HW_SUPPORT
 VOID CFG80211_RFKillStatusUpdate(
-	struct rtmp_adapter				pAd,
+	struct rtmp_adapter			pAd,
 	BOOLEAN						active);
 #endif /* RFKILL_HW_SUPPORT */
 
 /* P2P Related */
 VOID CFG80211DRV_SetP2pCliAssocIe(
-	struct rtmp_adapter				*pAdOrg,
+	struct rtmp_adapter			*pAdOrg,
 	VOID						*pData,
-	UINT                         ie_len);
+	UINT						ie_len);
 
 VOID CFG80211DRV_P2pClientKeyAdd(
-	struct rtmp_adapter				*pAdOrg,
+	struct rtmp_adapter			*pAdOrg,
 	VOID						*pData);
 
 BOOLEAN CFG80211DRV_P2pClientConnect(
-	struct rtmp_adapter				*pAdOrg,
+	struct rtmp_adapter			*pAdOrg,
 	VOID						*pData);
 
 BOOLEAN CFG80211_checkScanTable(
-        IN struct rtmp_adapter                          *pAdCB);
+        IN struct rtmp_adapter	*pAdCB);
 
 VOID CFG80211_P2pClientSendNullFrame(
-	struct rtmp_adapter 				*pAdCB,
+	struct rtmp_adapter 		*pAdCB,
 	INT							 PwrMgmt);
 
 VOID CFG80211RemainOnChannelTimeout(
@@ -271,30 +271,30 @@ VOID CFG80211RemainOnChannelTimeout(
 	PVOID 						SystemSpecific3);
 
 BOOLEAN CFG80211DRV_OpsRemainOnChannel(
-	struct rtmp_adapter				*pAdOrg,
+	struct rtmp_adapter			*pAdOrg,
 	VOID						*pData,
-	uint32_t 						duration);
+	uint32_t 					duration);
 
 BOOLEAN CFG80211DRV_OpsCancelRemainOnChannel(
-        struct rtmp_adapter                             *pAdOrg,
-        uint32_t                                          cookie);
+	struct rtmp_adapter			*pAdOrg,
+	uint32_t					cookie);
 
 
 VOID CFG80211DRV_OpsMgmtFrameProbeRegister(
-        struct rtmp_adapter                             *pAdOrg,
-        VOID                                            *pData,
-		BOOLEAN                                          isReg);
+	struct rtmp_adapter			*pAdOrg,
+	VOID						*pData,
+	BOOLEAN						isReg);
 
 VOID CFG80211DRV_OpsMgmtFrameActionRegister(
-        struct rtmp_adapter                             *pAdOrg,
-        VOID                                            *pData,
-	BOOLEAN                                     isReg);
+	struct rtmp_adapter			*pAdOrg,
+	VOID						*pData,
+	BOOLEAN						isReg);
 
 BOOLEAN CFG80211_CheckActionFrameType(
-        IN  struct rtmp_adapter 								 *pAd,
-		IN	u8 *									 preStr,
-		IN	u8 *									 pData,
-		IN	uint32_t                              		 length);
+	IN  struct rtmp_adapter		*pAd,
+	IN	u8 *					preStr,
+	IN	void *					pData,
+	IN	uint32_t				length);
 
 
 BOOLEAN CFG80211_SyncPacketWmmIe(struct rtmp_adapter *pAd, VOID *pData, ULONG dataLen);

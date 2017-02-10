@@ -43,16 +43,16 @@ VOID RtmpDrvRateGet(
 	}
 
 #ifdef DOT11_VHT_AC
-    if (MODE >= MODE_VHT)
-    {
+	if (MODE >= MODE_VHT)
+	{
 		if(MCS_1NSS > 9)
 		{
 			Antenna = (MCS / 10)+1;
 			MCS_1NSS %= 10;
 		}
-        *pRate = RalinkRate_VHT_1NSS[BW][ShortGI][MCS_1NSS];
-    }
-    else
+		*pRate = RalinkRate_VHT_1NSS[BW][ShortGI][MCS_1NSS];
+	}
+	else
 #endif /* DOT11_VHT_AC */
 
 	if ((MODE >= MODE_HTMIX) && (MODE < MODE_VHT))

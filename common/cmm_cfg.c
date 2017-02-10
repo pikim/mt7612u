@@ -724,7 +724,7 @@ Note:
 ========================================================================
 */
 INT RtmpIoctl_rt_ioctl_giwname(
-	IN	struct rtmp_adapter 		*pAd,
+	IN	struct rtmp_adapter 	*pAd,
 	IN	VOID					*pData,
 	IN	ULONG					Data)
 {
@@ -740,7 +740,7 @@ INT RtmpIoctl_rt_ioctl_giwname(
 
 
 INT RTMP_COM_IoctlHandle(
-	IN	struct rtmp_adapter			*pAd,
+	IN	struct rtmp_adapter		*pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
 	IN	USHORT					subcmd,

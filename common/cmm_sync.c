@@ -106,7 +106,7 @@ VOID BuildChannelList(struct rtmp_adapter *pAd)
 				{
 					if (pChannelList[i] == pAd->TxPower[j].Channel)
 						memmove(&pAd->ChannelList[index+i], &pAd->TxPower[j], sizeof(CHANNEL_TX_POWER));
-						pAd->ChannelList[index + i].Flags = pChannelListFlag[i];
+					pAd->ChannelList[index + i].Flags = pChannelListFlag[i];
 				}
 
 						if (N_ChannelGroupCheck(pAd, pAd->ChannelList[index + i].Channel))
@@ -218,7 +218,7 @@ VOID BuildChannelList(struct rtmp_adapter *pAd)
 				{
 					if (pChannelList[i] == pAd->TxPower[j].Channel)
 						memmove(&pAd->ChannelList[index+i], &pAd->TxPower[j], sizeof(CHANNEL_TX_POWER));
-						pAd->ChannelList[index + i].Flags = pChannelListFlag[i];
+					pAd->ChannelList[index + i].Flags = pChannelListFlag[i];
 				}
 
 				if (N_ChannelGroupCheck(pAd, pAd->ChannelList[index + i].Channel))

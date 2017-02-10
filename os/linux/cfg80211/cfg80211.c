@@ -1354,7 +1354,7 @@ static int CFG80211_OpsConnect(
 #endif /* RT_CFG80211_P2P_CONCURRENT_DEVICE */
 	{
 		if (pSme->ie_len > 0)
-			RTMP_DRIVER_80211_GEN_IE_SET(pAd, pSme->ie, pSme->ie_len);
+			RTMP_DRIVER_80211_GEN_IE_SET(pAd, (void*)pSme->ie, pSme->ie_len);
 		else
 			RTMP_DRIVER_80211_GEN_IE_SET(pAd, NULL, 0);
 	}
@@ -1666,12 +1666,12 @@ static int CFG80211_OpsRemainOnChannel(
 	INT ChannelType = RT_CMD_80211_CHANTYPE_HT20;
 	dev = pWdev->netdev;
 
-	rndCookie = ((RandomByte2(pAd) * 256 * 256* 256) + (RandomByte2(pAd) * 256 * 256) + (RandomByte2(pAd) * 256) + RandomByte2(pAd)) |1;
-	CFG80211DBG(RT_DEBUG_TRACE, ("80211> %s ==>\n", __FUNCTION__));
-
 	pAd = MAC80211_PAD_GET(pWiphy);
 	if (pAd == NULL)
 		return -EINVAL;
+
+	rndCookie = ((RandomByte2(pAd) * 256 * 256* 256) + (RandomByte2(pAd) * 256 * 256) + (RandomByte2(pAd) * 256) + RandomByte2(pAd)) |1;
+	CFG80211DBG(RT_DEBUG_TRACE, ("80211> %s ==>\n", __FUNCTION__));
 
 	/*CFG_TODO: Shall check channel type*/
 
@@ -1969,11 +1969,11 @@ static int CFG80211_OpsStaChg(struct wiphy *pWiphy, struct net_device *dev,
 	if (params->sta_flags_set & BIT(NL80211_STA_FLAG_AUTHORIZED)) {
 		CFG80211DBG(RT_DEBUG_TRACE, ("80211> STA(%02X:%02X:%02X:%02X:%02X:%02X) ==> PortSecured\n",
 			PRINT_MAC(pMacAddr)));
-		RTMP_DRIVER_80211_AP_MLME_PORT_SECURED(pAd, pMacAddr, 1);
+		RTMP_DRIVER_80211_AP_MLME_PORT_SECURED(pAd, (void*)pMacAddr, 1);
 	} else {
 		CFG80211DBG(RT_DEBUG_TRACE, ("80211> STA(%02X:%02X:%02X:%02X:%02X:%02X) ==> PortNotSecured\n",
                         PRINT_MAC(pMacAddr)));
-		RTMP_DRIVER_80211_AP_MLME_PORT_SECURED(pAd, pMacAddr, 0);
+		RTMP_DRIVER_80211_AP_MLME_PORT_SECURED(pAd, (void*)pMacAddr, 0);
 	}
 
 	return 0;
@@ -1993,7 +1993,7 @@ static struct wireless_dev* CFG80211_OpsVirtualInfAdd(
 	if (pAd == NULL)
 		return NULL;
 
-	CFG80211DBG(RT_DEBUG_OFF, ("80211> %s [%s,%d, %d] ==>\n", __FUNCTION__, name, Type, strlen(name)));
+	CFG80211DBG(RT_DEBUG_OFF, ("80211> %s [%s,%d, %ld] ==>\n", __FUNCTION__, name, Type, strlen(name)));
 
 	vifInfo.vifType = Type;
 	vifInfo.vifNameLen = strlen(name);

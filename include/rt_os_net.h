@@ -61,7 +61,7 @@ INT RtmpRaDevCtrlInit(struct rtmp_adapter *pAd, RTMP_INF_TYPE infType);
 VOID RTMPHandleInterrupt(struct rtmp_adapter *pAd);
 
 INT RTMP_COM_IoctlHandle(
-	IN	struct rtmp_adapter				*pAd,
+	IN	struct rtmp_adapter		*pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
 	IN	USHORT					subcmd,
@@ -70,19 +70,19 @@ INT RTMP_COM_IoctlHandle(
 
 int	RTMPSendPackets(
 	IN	NDIS_HANDLE		MiniportAdapterContext,
-	IN	struct sk_buff		**ppPacketArray,
+	IN	struct sk_buff	**ppPacketArray,
 	IN	UINT			NumberOfPackets,
 	IN	uint32_t 		PktTotalLen,
 	IN	RTMP_NET_ETH_CONVERT_DEV_SEARCH	Func);
 
 int P2P_PacketSend(
 	IN	struct sk_buff *			pPktSrc,
-	IN	struct net_device *				pDev,
+	IN	struct net_device *			pDev,
 	IN	RTMP_NET_PACKET_TRANSMIT	Func);
 
 #ifdef CONFIG_AP_SUPPORT
 INT RTMP_AP_IoctlHandle(
-	IN	struct rtmp_adapter			*pAd,
+	IN	struct rtmp_adapter		*pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
 	IN	USHORT					subcmd,
@@ -92,7 +92,7 @@ INT RTMP_AP_IoctlHandle(
 
 #ifdef CONFIG_STA_SUPPORT
 INT RTMP_STA_IoctlHandle(
-	IN	struct rtmp_adapter					*pAd,
+	IN	struct rtmp_adapter		*pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
 	IN	USHORT					subcmd,

@@ -195,9 +195,9 @@ static VOID mt76x2_bbp_adjust(struct rtmp_adapter *pAd)
 					pAd->CommonCfg.AddHTInfo.AddHtInfo.ExtChanOffset));
 }
 
-char get_chl_grp(u8 channel)
+int get_chl_grp(u8 channel)
 {
-	char chl_grp = A_BAND_GRP0_CHL;
+	int chl_grp = A_BAND_GRP0_CHL;
 
 	if (channel >= 184 && channel <= 196)
 		chl_grp = A_BAND_GRP0_CHL;
@@ -217,9 +217,9 @@ char get_chl_grp(u8 channel)
 	return chl_grp;
 }
 
-static char get_low_mid_hi_index(u8 channel)
+static int get_low_mid_hi_index(u8 channel)
 {
-	char index = G_BAND_LOW;
+	int index = G_BAND_LOW;
 
 	if (channel <= 14) {
 		if (channel >= 1 && channel <= 5)
@@ -498,7 +498,7 @@ static void mt76x2_switch_channel(struct rtmp_adapter *ad, u8 channel, BOOLEAN s
 		RTMP_SEM_EVENT_WAIT(&ad->hw_atomic, ret);
 		if (ret != 0) {
 			DBGPRINT(RT_DEBUG_ERROR, ("reg_atomic get failed(ret=%d)\n", ret));
-			return STATUS_UNSUCCESSFUL;
+			return;
 		}
 	}
 #endif /* RTMP_MAC_USB */
@@ -763,7 +763,7 @@ static void mt76x2_switch_channel(struct rtmp_adapter *ad, u8 channel, BOOLEAN s
 		RTMP_SEM_EVENT_WAIT(&ad->tssi_lock, ret);
 		if (ret != 0) {
 			DBGPRINT(RT_DEBUG_ERROR, ("tssi_lock get failed(ret=%d)\n", ret));
-			return STATUS_UNSUCCESSFUL;
+			return;
 		}
 	}
 #endif /* RTMP_MAC_USB */
@@ -907,7 +907,7 @@ void mt76x2_tssi_compensation(struct rtmp_adapter *ad, u8 channel)
 		RTMP_SEM_EVENT_WAIT(&ad->tssi_lock, ret);
 		if (ret != 0) {
 			DBGPRINT(RT_DEBUG_ERROR, ("tssi_lock get failed(ret=%d)\n", ret));
-			return STATUS_UNSUCCESSFUL;
+			return;
 		}
 	}
 #endif
@@ -1498,6 +1498,7 @@ int mt76x2_reinit_hi_lna_gain(struct rtmp_adapter *ad, u8 channel)
 	return 0;
 }
 
+#if 0
 int mt76x2_get_rx_high_gain(struct rtmp_adapter *ad)
 {
 	uint16_t value;
@@ -1613,6 +1614,7 @@ int mt76x2_get_rx_high_gain(struct rtmp_adapter *ad)
 			cap->rf1_5g_grp5_rx_high_gain = -((value & RF1_5G_GRP5_RX_HIGH_GAIN_MASK) >> 12);
 	}
 }
+#endif
 
 static int mt76x2_get_tx_pwr_info(struct rtmp_adapter *ad)
 {
@@ -2398,12 +2400,14 @@ int mt76x2_read_chl_pwr(struct rtmp_adapter *ad)
 	return TRUE;
 }
 
+#if 0
 static INT rf_tr_agc_config(struct rtmp_adapter *pAd, INT rf_bw)
 {
 	signed char rx_agc_fc_offset[3] = {2,2,2}; /* array idx 0: 20M, 1:40M, 2:80m */
 	UINT8 tx_agc_fc_offset[3] = {0,0,0}; /* array idx 0: 20M, 1:40M, 2:80m */
 	CHAR rf32_val, rf31_val, rf_diff;
 }
+#endif
 
 void mt76x2_get_tx_pwr_per_rate(struct rtmp_adapter *ad)
 {

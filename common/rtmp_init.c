@@ -1417,7 +1417,7 @@ VOID NICUpdateFifoStaCounters(struct rtmp_adapter *pAd)
 					pEntry->TxBFCounters.ETxSuccessCount++;
 				else
 					pEntry->TxBFCounters.ETxFailCount++;
-					pEntry->TxBFCounters.ETxRetryCount += reTry;
+				pEntry->TxBFCounters.ETxRetryCount += reTry;
 			}
 			else if (StaFifo.field.iTxBF) {
 				if (StaFifo.field.TxSuccess)

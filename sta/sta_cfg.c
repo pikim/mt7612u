@@ -419,44 +419,44 @@ INT Set_EncrypType_Proc(struct rtmp_adapter *pAd, char *arg)
 {
 	struct rtmp_wifi_dev *wdev = &pAd->StaCfg.wdev;
 
-    if (rtstrcasecmp(arg, "NONE") == TRUE)
-    {
-        if (wdev->AuthMode >= Ndis802_11AuthModeWPA)
-            return TRUE;    /* do nothing */
+	if (rtstrcasecmp(arg, "NONE") == TRUE)
+	{
+		if (wdev->AuthMode >= Ndis802_11AuthModeWPA)
+			return TRUE;    /* do nothing */
 
-        wdev->WepStatus     = Ndis802_11WEPDisabled;
-        pAd->StaCfg.PairCipher    = Ndis802_11WEPDisabled;
-	    pAd->StaCfg.GroupCipher   = Ndis802_11WEPDisabled;
-    }
-    else if (rtstrcasecmp(arg, "WEP") == TRUE)
-    {
-        if (wdev->AuthMode >= Ndis802_11AuthModeWPA)
-            return TRUE;    /* do nothing */
+		wdev->WepStatus     = Ndis802_11WEPDisabled;
+		pAd->StaCfg.PairCipher    = Ndis802_11WEPDisabled;
+		pAd->StaCfg.GroupCipher   = Ndis802_11WEPDisabled;
+	}
+	else if (rtstrcasecmp(arg, "WEP") == TRUE)
+	{
+		if (wdev->AuthMode >= Ndis802_11AuthModeWPA)
+			return TRUE;    /* do nothing */
 
-        wdev->WepStatus     = Ndis802_11WEPEnabled;
-        pAd->StaCfg.PairCipher    = Ndis802_11WEPEnabled;
-	    pAd->StaCfg.GroupCipher   = Ndis802_11WEPEnabled;
-    }
-    else if (rtstrcasecmp(arg, "TKIP") == TRUE)
-    {
-        if (wdev->AuthMode < Ndis802_11AuthModeWPA)
-            return TRUE;    /* do nothing */
+		wdev->WepStatus     = Ndis802_11WEPEnabled;
+		pAd->StaCfg.PairCipher    = Ndis802_11WEPEnabled;
+		pAd->StaCfg.GroupCipher   = Ndis802_11WEPEnabled;
+	}
+	else if (rtstrcasecmp(arg, "TKIP") == TRUE)
+	{
+		if (wdev->AuthMode < Ndis802_11AuthModeWPA)
+			return TRUE;    /* do nothing */
 
-        wdev->WepStatus     = Ndis802_11TKIPEnable;
-        pAd->StaCfg.PairCipher    = Ndis802_11TKIPEnable;
-	    pAd->StaCfg.GroupCipher   = Ndis802_11TKIPEnable;
-    }
-    else if (rtstrcasecmp(arg, "AES") == TRUE)
-    {
-        if (wdev->AuthMode < Ndis802_11AuthModeWPA)
-            return TRUE;    /* do nothing */
+		wdev->WepStatus     = Ndis802_11TKIPEnable;
+		pAd->StaCfg.PairCipher    = Ndis802_11TKIPEnable;
+		pAd->StaCfg.GroupCipher   = Ndis802_11TKIPEnable;
+	}
+	else if (rtstrcasecmp(arg, "AES") == TRUE)
+	{
+		if (wdev->AuthMode < Ndis802_11AuthModeWPA)
+			return TRUE;    /* do nothing */
 
-        wdev->WepStatus     = Ndis802_11AESEnable;
-        pAd->StaCfg.PairCipher    = Ndis802_11AESEnable;
-	    pAd->StaCfg.GroupCipher   = Ndis802_11AESEnable;
-    }
-    else
-        return FALSE;
+		wdev->WepStatus     = Ndis802_11AESEnable;
+		pAd->StaCfg.PairCipher    = Ndis802_11AESEnable;
+		pAd->StaCfg.GroupCipher   = Ndis802_11AESEnable;
+	}
+	else
+		return FALSE;
 
 	if (pAd->StaCfg.BssType == BSS_ADHOC)
 	{
@@ -1707,17 +1707,17 @@ RtmpIoctl_rt_ioctl_siwfreq(
 		MAP_KHZ_TO_CHANNEL_ID( freq , chan); /* Setting by frequency - search the table , like 2.412G, 2.422G, */
 	}
 
-    if (ChannelSanity(pAd, chan) == TRUE)
-    {
-	pAd->CommonCfg.Channel = chan;
+	if (ChannelSanity(pAd, chan) == TRUE)
+	{
+		pAd->CommonCfg.Channel = chan;
 		/* Save the channel on MlmeAux for CntlOidRTBssidProc used. */
 		pAd->MlmeAux.Channel = pAd->CommonCfg.Channel;
 		/*save connect info*/
 		pAd->StaCfg.ConnectinfoChannel = pAd->CommonCfg.Channel;
-	DBGPRINT(RT_DEBUG_ERROR, ("==>rt_ioctl_siwfreq::SIOCSIWFREQ(Channel=%d)\n", pAd->CommonCfg.Channel));
-    }
-    else
-        return NDIS_STATUS_FAILURE;
+		DBGPRINT(RT_DEBUG_ERROR, ("==>rt_ioctl_siwfreq::SIOCSIWFREQ(Channel=%d)\n", pAd->CommonCfg.Channel));
+	}
+	else
+		return NDIS_STATUS_FAILURE;
 
 	return NDIS_STATUS_SUCCESS;
 }
@@ -3370,19 +3370,19 @@ INT RtmpIoctl_rt_ioctl_siwrate(struct rtmp_adapter *pAd, VOID *pData, ULONG Data
 	struct rtmp_wifi_dev *wdev = &pAd->StaCfg.wdev;
 
     /*
-    	rate = -1 => auto rate
+	rate = -1 => auto rate
 	rate = X, => fixed = 1 and rate fixed at X
     */
-    if (rate == -1)
-    {
-        /*Auto Rate */
-        wdev->DesiredTransmitSetting.field.MCS = MCS_AUTO;
+	if (rate == -1)
+	{
+		/*Auto Rate */
+		wdev->DesiredTransmitSetting.field.MCS = MCS_AUTO;
 		wdev->bAutoTxRateSwitch = TRUE;
 		if ((!WMODE_CAP_N(pAd->CommonCfg.PhyMode)) ||
 			(pAd->MacTab.Content[BSSID_WCID].HTPhyMode.field.MODE <= MODE_OFDM))
 			RTMPSetDesiredRates(pAd, -1);
 
-			SetCommonHT(pAd);
+		SetCommonHT(pAd);
 	}
 	else
 	{

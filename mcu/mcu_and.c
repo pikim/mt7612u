@@ -207,7 +207,7 @@ load_patch_protect:
 		}
 
 		if (loop >= GET_SEMAPHORE_RETRY_MAX) {
-			DBGPRINT(RT_DEBUG_ERROR, ("%s: can not get the hw semaphore\n"));
+			DBGPRINT(RT_DEBUG_ERROR, ("%s: can not get the hw semaphore\n", __FUNCTION__));
 			return NDIS_STATUS_FAILURE;
 		}
 	}
@@ -620,7 +620,7 @@ loadfw_protect:
 		}
 
 		if (loop >= GET_SEMAPHORE_RETRY_MAX) {
-			DBGPRINT(RT_DEBUG_ERROR, ("%s: can not get the hw semaphore\n"));
+			DBGPRINT(RT_DEBUG_ERROR, ("%s: can not get the hw semaphore\n", __FUNCTION__));
 			return NDIS_STATUS_FAILURE;
 		}
 	}
@@ -1868,7 +1868,7 @@ static int andes_dequeue_and_kick_out_cmd_msgs(struct rtmp_adapter *ad)
 	int ret = NDIS_STATUS_SUCCESS;
 	TXINFO_NMAC_CMD *tx_info;
 
-	while (msg = andes_dequeue_cmd_msg(ctl, &ctl->txq)) {
+	while ((msg = andes_dequeue_cmd_msg(ctl, &ctl->txq))) {
 		if (!RTMP_TEST_FLAG(ad, fRTMP_ADAPTER_MCU_SEND_IN_BAND_CMD)
 				|| RTMP_TEST_FLAG(ad, fRTMP_ADAPTER_NIC_NOT_EXIST)
 				|| RTMP_TEST_FLAG(ad, fRTMP_ADAPTER_SUSPEND)) {
@@ -2270,7 +2270,7 @@ int andes_load_cr(struct rtmp_adapter *ad, u32 cr_type, UINT8 temp_level, UINT8 
 	u32 value = 0;
 	int ret = 0;
 
-	DBGPRINT(RT_DEBUG_OFF, ("%s:cr_type(%d)\n", __FUNCTION__, cr_type, temp_level, channel));
+	DBGPRINT(RT_DEBUG_OFF, ("%s:cr_type(%d), temp_level(%d), channel(%d)\n", __FUNCTION__, cr_type, temp_level, channel));
 
 	msg = andes_alloc_cmd_msg(ad, 8);
 

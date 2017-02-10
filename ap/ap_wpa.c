@@ -550,11 +550,11 @@ UINT	APValidateRSNIE(
 */
 VOID HandleCounterMeasure(struct rtmp_adapter *pAd, MAC_TABLE_ENTRY *pEntry)
 {
-    INT         i;
-    BOOLEAN     Cancelled;
+	INT         i;
+	BOOLEAN     Cancelled;
 
-    if (!pEntry)
-        return;
+	if (!pEntry)
+		return;
 
 	/* Todo by AlbertY - Not support currently in ApClient-link */
 	if (IS_ENTRY_APCLI(pEntry))

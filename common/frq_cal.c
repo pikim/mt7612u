@@ -98,7 +98,7 @@ VOID FrequencyCalibrationMode(
 	{
 		RT30xxReadRFRegister(pAd, RF_R23, (UCHAR *)(&RFValue));
 		RFValue = ((RFValue & ~0x7F) | (pAd->FreqCalibrationCtrl.AdaptiveFreqOffset & 0x7F));
-		RFValue = min(RFValue, 0x5F);
+		RFValue = min(RFValue, (typeof(RFValue))0x5F);
 		pAd->FreqCalibrationCtrl.AdaptiveFreqOffset = RFValue; /* Keep modified RF R23 value */
 		RT30xxWriteRFRegister(pAd, RF_R23, RFValue);
 		RT30xxReadRFRegister(pAd, RF_R07, (UCHAR *)(&RFValue));

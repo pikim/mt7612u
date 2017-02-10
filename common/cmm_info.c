@@ -1640,44 +1640,44 @@ Arguments:
 */
 char *GetEncryptType(CHAR enc)
 {
-    if(enc == Ndis802_11WEPDisabled)
-        return "NONE";
-    if(enc == Ndis802_11WEPEnabled)
-    	return "WEP";
-    if(enc == Ndis802_11TKIPEnable)
-    	return "TKIP";
-    if(enc == Ndis802_11AESEnable)
-    	return "AES";
+	if(enc == Ndis802_11WEPDisabled)
+		return "NONE";
+	if(enc == Ndis802_11WEPEnabled)
+		return "WEP";
+	if(enc == Ndis802_11TKIPEnable)
+		return "TKIP";
+	if(enc == Ndis802_11AESEnable)
+		return "AES";
 	if(enc == Ndis802_11TKIPAESMix)
-    	return "TKIPAES";
-    else
-    	return "UNKNOW";
+		return "TKIPAES";
+	else
+		return "UNKNOW";
 }
 
 char *GetAuthMode(CHAR auth)
 {
-    if(auth == Ndis802_11AuthModeOpen)
-    	return "OPEN";
-    if(auth == Ndis802_11AuthModeShared)
-    	return "SHARED";
+	if(auth == Ndis802_11AuthModeOpen)
+		return "OPEN";
+	if(auth == Ndis802_11AuthModeShared)
+		return "SHARED";
 	if(auth == Ndis802_11AuthModeAutoSwitch)
-    	return "AUTOWEP";
-    if(auth == Ndis802_11AuthModeWPA)
-    	return "WPA";
-    if(auth == Ndis802_11AuthModeWPAPSK)
-    	return "WPAPSK";
-    if(auth == Ndis802_11AuthModeWPANone)
-    	return "WPANONE";
-    if(auth == Ndis802_11AuthModeWPA2)
-    	return "WPA2";
-    if(auth == Ndis802_11AuthModeWPA2PSK)
-    	return "WPA2PSK";
+		return "AUTOWEP";
+	if(auth == Ndis802_11AuthModeWPA)
+		return "WPA";
+	if(auth == Ndis802_11AuthModeWPAPSK)
+		return "WPAPSK";
+	if(auth == Ndis802_11AuthModeWPANone)
+		return "WPANONE";
+	if(auth == Ndis802_11AuthModeWPA2)
+		return "WPA2";
+	if(auth == Ndis802_11AuthModeWPA2PSK)
+		return "WPA2PSK";
 	if(auth == Ndis802_11AuthModeWPA1WPA2)
-    	return "WPA1WPA2";
+		return "WPA1WPA2";
 	if(auth == Ndis802_11AuthModeWPA1PSKWPA2PSK)
-    	return "WPA1PSKWPA2PSK";
+		return "WPA1PSKWPA2PSK";
 
-    	return "UNKNOW";
+	return "UNKNOW";
 }
 
 
@@ -4442,9 +4442,9 @@ INT	Show_PMK_Proc(
 		memmove(PMK, pAd->StaCfg.PMK, 32);
 #endif /* CONFIG_STA_SUPPORT */
 
-    sprintf(pBuf, "\tPMK = ");
-    for (idx = 0; idx < 32; idx++)
-        sprintf(pBuf+strlen(pBuf), "%02X", PMK[idx]);
+	sprintf(pBuf, "\tPMK = ");
+	for (idx = 0; idx < 32; idx++)
+		sprintf(pBuf+strlen(pBuf), "%02X", PMK[idx]);
 
 	return 0;
 }
@@ -4597,7 +4597,7 @@ INT show_stainfo_proc(struct rtmp_adapter *pAd, char *arg)
 				__FUNCTION__, arg));
 	for (i = 0, token = rstrtok(arg, &sep[0]); token; token = rstrtok(NULL, &sep[0]), i++)
 	{
-		DBGPRINT(RT_DEBUG_OFF, ("%s(): token(len=%d) =%s\n",
+		DBGPRINT(RT_DEBUG_OFF, ("%s(): token(len=%ld) =%s\n",
 					__FUNCTION__, strlen(token), token));
 		if((strlen(token) != 2) || (!isxdigit(*token)) || (!isxdigit(*(token+1))))
 			return FALSE;

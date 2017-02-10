@@ -33,7 +33,7 @@ VOID CFG80211DRV_OpsScanInLinkDownAction(struct rtmp_adapter *pAd)
 {
 	BOOLEAN Cancelled;
 
-	DBGPRINT(RT_DEBUG_TRACE, ("---> CFG80211_MLME Disconnect in Scaning, ORI ==> %d\n",
+	DBGPRINT(RT_DEBUG_TRACE, ("---> CFG80211_MLME Disconnect in Scaning, ORI ==> %ld\n",
 	  								pAd->Mlme.CntlMachine.CurrState));
 
 	RTMPCancelTimer(&pAd->MlmeAux.ScanTimer, &Cancelled);
@@ -43,7 +43,7 @@ VOID CFG80211DRV_OpsScanInLinkDownAction(struct rtmp_adapter *pAd)
 	CFG80211OS_ScanEnd(pAd->pCfg80211_CB, TRUE);
 
 	ScanNextChannel(pAd, OPMODE_STA);
-	DBGPRINT(RT_DEBUG_TRACE, ("<--- CFG80211_MLME Disconnect in Scan END, ORI ==> %d\n",
+	DBGPRINT(RT_DEBUG_TRACE, ("<--- CFG80211_MLME Disconnect in Scan END, ORI ==> %ld\n",
 									pAd->Mlme.CntlMachine.CurrState));
 }
 

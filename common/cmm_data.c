@@ -1154,7 +1154,7 @@ static UCHAR TxPktClassification(struct rtmp_adapter *pAd, struct sk_buff * pPac
 	if ((RTMP_GET_PACKET_FRAGMENTS(pPacket) > 1)
 		 && (TxFrameType == TX_LEGACY_FRAME)
 #ifdef VHT_TXBF_SUPPORT
-		 || (TxFrameType == TX_LEGACY_FRAME | TX_NDPA_FRAME)
+		 || (TxFrameType == (TX_LEGACY_FRAME | TX_NDPA_FRAME))
 #endif
 		&& ((pMacEntry->TXBAbitmap & (1<<(RTMP_GET_PACKET_UP(pPacket)))) == 0)
 		)
@@ -3236,7 +3236,6 @@ VOID RtmpPrepareHwNullFrame(
 	UINT8 TXWISize = pAd->chipCap.TXWISize;
 	TXWI_STRUC *pTxWI = &pAd->NullTxWI;
 	u8 *pNullFrame;
-	int NState;
 	HEADER_802_11 *pNullFr;
 	ULONG Length;
 	UCHAR *ptr;
@@ -3248,7 +3247,7 @@ VOID RtmpPrepareHwNullFrame(
 	memset(pNullFrame, 0, 48);
 	memset(pTxWI, 0, TXWISize);
 
-	if (NState == NDIS_STATUS_SUCCESS)
+	if (pNullFrame != NULL)
 	{
 		pNullFr = (PHEADER_802_11) pNullFrame;
 		Length = sizeof(HEADER_802_11);

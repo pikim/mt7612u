@@ -51,6 +51,8 @@ VOID CFG80211RemainOnChannelTimeout(
 {
 	struct rtmp_adapter *pAd = (struct rtmp_adapter *) FunctionContext;
 	PCFG80211_CTRL pCfg80211_ctrl = &pAd->cfg80211_ctrl;
+	struct net_device *pNetDev;
+	struct wireless_dev *pWdev;
 
 	DBGPRINT(RT_DEBUG_INFO, ("CFG80211_ROC: RemainOnChannelTimeout\n"));
 
@@ -103,9 +105,12 @@ VOID CFG80211RemainOnChannelTimeout(
 	{
 		DBGPRINT(RT_DEBUG_TRACE, ("CFG80211_ROC: RemainOnChannelTimeout -- FINISH\n"));
 
-        	cfg80211_remain_on_channel_expired( CFG80211_GetEventDevice(pAd),
-        		pCfg80211_ctrl->Cfg80211ChanInfo.cookie, pCfg80211_ctrl->Cfg80211ChanInfo.chan,
-        		GFP_KERNEL);
+		pNetDev = CFG80211_GetEventDevice(pAd);
+		pWdev = pNetDev->ieee80211_ptr;
+
+		cfg80211_remain_on_channel_expired( pWdev,
+			pCfg80211_ctrl->Cfg80211ChanInfo.cookie, pCfg80211_ctrl->Cfg80211ChanInfo.chan,
+			GFP_KERNEL);
 
 		pCfg80211_ctrl->Cfg80211RocTimerRunning = FALSE;
 	}
