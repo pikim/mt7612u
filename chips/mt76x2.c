@@ -1616,7 +1616,7 @@ int mt76x2_get_rx_high_gain(struct rtmp_adapter *ad)
 }
 #endif
 
-static int mt76x2_get_tx_pwr_info(struct rtmp_adapter *ad)
+static void mt76x2_get_tx_pwr_info(struct rtmp_adapter *ad)
 {
 	u16 value;
 	RTMP_CHIP_CAP *cap = &ad->chipCap;

@@ -396,7 +396,7 @@ struct net_device *RtmpPhyNetDevInit(struct rtmp_adapter *pAd, RTMP_OS_NETDEV_OP
 #if WIRELESS_EXT >= 12
 	if (OpMode == OPMODE_AP)
 	{
-		pNetDevHook->iw_handler = &rt28xx_ap_iw_handler_def;
+		pNetDevHook->iw_handler = (struct iw_handler_def *) &rt28xx_ap_iw_handler_def;
 	}
 #endif /*WIRELESS_EXT >= 12 */
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */

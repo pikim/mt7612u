@@ -80,7 +80,7 @@ static INT CFG80211DRV_UpdateTimIE(struct rtmp_adapter *pAd, UINT mbss_idx, u8 *
 	return New_Tim_Len;
 }
 
-static INT CFG80211DRV_UpdateApSettingFromBeacon(struct rtmp_adapter *pAd, UINT mbss_idx, CMD_RTPRIV_IOCTL_80211_BEACON *pBeacon)
+static VOID CFG80211DRV_UpdateApSettingFromBeacon(struct rtmp_adapter *pAd, UINT mbss_idx, CMD_RTPRIV_IOCTL_80211_BEACON *pBeacon)
 {
 	PMULTISSID_STRUCT pMbss = &pAd->ApCfg.MBSSID[mbss_idx];
 	struct rtmp_wifi_dev *wdev = &pMbss->wdev;
@@ -154,7 +154,6 @@ static INT CFG80211DRV_UpdateApSettingFromBeacon(struct rtmp_adapter *pAd, UINT 
 		DBGPRINT(RT_DEBUG_TRACE, ("CFG_TIM New DP %d\n", pBeacon->dtim_period));
 		pAd->ApCfg.DtimPeriod = pBeacon->dtim_period;
 	}
-
 }
 
 VOID CFG80211DRV_DisableApInterface(struct rtmp_adapter *pAd)
@@ -166,31 +165,31 @@ VOID CFG80211DRV_DisableApInterface(struct rtmp_adapter *pAd)
 	pAd->ApCfg.MBSSID[MAIN_MBSSID].bBcnSntReq = FALSE;
 	wdev->Hostapd = Hostapd_Diable;
 
-  	/* For AP - STA switch */
+	/* For AP - STA switch */
 	if (pAd->CommonCfg.BBPCurrentBW != BW_40)
 	{
 		CFG80211DBG(RT_DEBUG_TRACE, ("80211> %s, switch to BW_20\n", __FUNCTION__));
 		bbp_set_bw(pAd, BW_20);
-   	}
+	}
 
-    /* Disable pre-TBTT interrupt */
-    AsicSetPreTbtt(pAd, FALSE);
+	/* Disable pre-TBTT interrupt */
+	AsicSetPreTbtt(pAd, FALSE);
 
-    if (!INFRA_ON(pAd))
-    {
+	if (!INFRA_ON(pAd))
+	{
 		/* Disable piggyback */
 		RTMPSetPiggyBack(pAd, FALSE);
 		AsicUpdateProtect(pAd, 0,  (ALLN_SETPROTECT|CCKSETPROTECT|OFDMSETPROTECT), TRUE, FALSE);
-    }
+	}
 
-    if (!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST))
-    {
-        AsicDisableSync(pAd);
-    }
+	if (!RTMP_TEST_FLAG(pAd, fRTMP_ADAPTER_NIC_NOT_EXIST))
+	{
+		AsicDisableSync(pAd);
+	}
 
 #ifdef RTMP_MAC_USB
-    /* For RT2870, we need to clear the beacon sync buffer. */
-    RTUSBBssBeaconExit(pAd);
+	/* For RT2870, we need to clear the beacon sync buffer. */
+	RTUSBBssBeaconExit(pAd);
 #endif /* RTMP_MAC_USB */
 
 	OPSTATUS_CLEAR_FLAG(pAd, fOP_AP_STATUS_MEDIA_STATE_CONNECTED);

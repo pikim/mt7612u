@@ -465,7 +465,7 @@ int write_reg(struct rtmp_adapter *ad, uint32_t base, uint16_t offset, uint32_t 
 int read_reg(struct rtmp_adapter *ad, uint32_t base, uint16_t offset, uint32_t *value)
 {
 	NTSTATUS ret;
-	UINT8 req;
+	UINT8 req = 0x47;
 	uint32_t io_value;
 
 	if (base == 0x40)

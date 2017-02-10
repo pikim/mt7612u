@@ -122,7 +122,7 @@ extern const struct iw_handler_def rt28xx_iw_handler_def;
 #endif /* CONFIG_STA_SUPPORT */
 
 #ifdef CONFIG_APSTA_MIXED_SUPPORT
-extern	const struct iw_handler_def rt28xx_ap_iw_handler_def;
+extern const struct iw_handler_def rt28xx_ap_iw_handler_def;
 #endif /* CONFIG_APSTA_MIXED_SUPPORT */
 
 /***********************************************************************************

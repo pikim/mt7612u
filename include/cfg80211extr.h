@@ -275,7 +275,7 @@ BOOLEAN CFG80211DRV_OpsRemainOnChannel(
 	VOID						*pData,
 	uint32_t 					duration);
 
-BOOLEAN CFG80211DRV_OpsCancelRemainOnChannel(
+VOID CFG80211DRV_OpsCancelRemainOnChannel(
 	struct rtmp_adapter			*pAdOrg,
 	uint32_t					cookie);
 
@@ -297,9 +297,9 @@ BOOLEAN CFG80211_CheckActionFrameType(
 	IN	uint32_t				length);
 
 
-BOOLEAN CFG80211_SyncPacketWmmIe(struct rtmp_adapter *pAd, VOID *pData, ULONG dataLen);
+VOID CFG80211_SyncPacketWmmIe(struct rtmp_adapter *pAd, VOID *pData, ULONG dataLen);
 BOOLEAN CFG80211_HandleP2pMgmtFrame(struct rtmp_adapter *pAd, RX_BLK *pRxBlk, UCHAR OpMode);
-INT CFG80211_SendMgmtFrame(struct rtmp_adapter *pAd, VOID *pData, ULONG Data);
+VOID CFG80211_SendMgmtFrame(struct rtmp_adapter *pAd, VOID *pData, ULONG Data);
 
 #ifdef RT_CFG80211_P2P_SUPPORT
 VOID CFG80211_PeerP2pBeacon(
