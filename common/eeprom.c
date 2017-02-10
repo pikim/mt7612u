@@ -49,3 +49,50 @@ INT RtmpChipOpsEepromHook(struct rtmp_adapter *pAd)
 
 	return 0;
 }
+
+INT rtmp_ee_load_from_bin(IN struct rtmp_adapter *	pAd)
+{
+	char *src = NULL;
+	INT ret_val;
+	RTMP_OS_FD srcf;
+	RTMP_OS_FS_INFO osFSInfo;
+
+	src = BIN_FILE_PATH;
+
+	DBGPRINT(RT_DEBUG_TRACE, ("%s::FileName=%s\n", __FUNCTION__, src));
+
+	RtmpOSFSInfoChange(&osFSInfo, TRUE);
+
+	if (src && *src)
+	{
+		srcf = RtmpOSFileOpen(src, O_RDONLY, 0);
+		if (IS_FILE_OPEN_ERR(srcf))
+		{
+			DBGPRINT(RT_DEBUG_ERROR, ("%s::Error opening %s\n", __FUNCTION__, src));
+			return FALSE;
+		}
+		else
+		{
+			memset(pAd->EEPROMImage, 0, MAX_EEPROM_BIN_FILE_SIZE);
+			ret_val = RtmpOSFileRead(srcf, (char *)pAd->EEPROMImage, MAX_EEPROM_BIN_FILE_SIZE);
+
+			if (ret_val > 0)
+				ret_val = NDIS_STATUS_SUCCESS;
+			else
+				DBGPRINT(RT_DEBUG_ERROR, ("%s::Read file \"%s\" failed(errCode=%d)!\n", __FUNCTION__, src, ret_val));
+      		}
+	}
+	else
+	{
+		DBGPRINT(RT_DEBUG_ERROR, ("%s::Error src or srcf is null\n", __FUNCTION__));
+		return FALSE;
+	}
+
+	ret_val = RtmpOSFileClose(srcf);
+
+	if (ret_val)
+		DBGPRINT(RT_DEBUG_ERROR, ("%s::Error %d closing %s\n", __FUNCTION__, -ret_val, src));
+
+	RtmpOSFSInfoChange(&osFSInfo, FALSE);
+	return TRUE;
+}

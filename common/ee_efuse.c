@@ -388,19 +388,21 @@ INT eFuse_init(struct rtmp_adapter *pAd)
 
 	/*RT3572 means 3062/3562/3572*/
 	/*3593 means 3593*/
-	DBGPRINT(RT_DEBUG_ERROR, ("NVM is Efuse and its size =%x[%x-%x] \n",pAd->chipCap.EFUSE_USAGE_MAP_SIZE,pAd->chipCap.EFUSE_USAGE_MAP_START,pAd->chipCap.EFUSE_USAGE_MAP_END));
+	DBGPRINT(RT_DEBUG_ERROR, ("NVM is Efuse and its size =%x[%x-%x] \n",
+							pAd->chipCap.EFUSE_USAGE_MAP_SIZE,
+							pAd->chipCap.EFUSE_USAGE_MAP_START,
+							pAd->chipCap.EFUSE_USAGE_MAP_END));
 	eFuseGetFreeBlockCount(pAd, &EfuseFreeBlock);
 	/*If the used block of efuse is less than 5. We assume the default value*/
 	/* of this efuse is empty and change to the buffer mode in odrder to */
 	/*bring up interfaces successfully.*/
 
-
 	if ( EfuseFreeBlock >= pAd->chipCap.EFUSE_RESERVED_SIZE )
 	{
-
-
 		DBGPRINT(RT_DEBUG_OFF, ("NVM is efuse and the information is too less to bring up the interface\n"));
 		DBGPRINT(RT_DEBUG_OFF, ("Load EEPROM buffer from BIN, and force to use BIN buffer mode\n"));
+
+		result = rtmp_ee_load_from_bin(pAd);
 
 		/* Forse to use BIN eeprom buffer mode */
 		RtmpChipOpsEepromHook(pAd);

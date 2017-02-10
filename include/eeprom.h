@@ -786,7 +786,7 @@ NTSTATUS RTUSBWriteEEPROM16(
 #endif /* RTMP_USB_SUPPORT */
 
 
-
+INT rtmp_ee_load_from_bin(IN struct rtmp_adapter *pAd);
 
 /*************************************************************************
   *	Public function declarations for prom operation callback functions setting
