@@ -2862,13 +2862,11 @@ UCHAR Read_PFMUTxBfProfile(
 	IN	BOOLEAN			    implicitProfile)
 {
 	INT carrierIndex, scIndex;
-	INT	profileNum;
-	SC_TABLE_ENTRY *pTab;
-	INT j, c;
-	UCHAR  r163Value = 0;
+	INT profileNum;
+	SC_TABLE_ENTRY *pTab = NULL;
 	uint32_t value32;
-	UCHAR  GrpTab[3] = {1, 2, 4};
-	UCHAR  GrpInc;
+	UCHAR GrpTab[3] = {1, 2, 4};
+	UCHAR GrpInc;
 
 #ifdef TIMESTAMP_BF_PROFILE
 	struct timeval tval1, tval2;

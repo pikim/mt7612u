@@ -1220,7 +1220,7 @@ VOID AsicCtrlBcnMask(struct rtmp_adapter *pAd, INT mask)
 	RTMP_IO_WRITE32(pAd, TX_BCN_BYPASS_MASK, bms.word);
 }
 
-static INT AsicSetIntTimerEn(struct rtmp_adapter *pAd, BOOLEAN enable, uint32_t type, uint32_t timeout)
+static BOOLEAN AsicSetIntTimerEn(struct rtmp_adapter *pAd, BOOLEAN enable, uint32_t type, uint32_t timeout)
 {
 	uint32_t val, mask, time_mask;
 
