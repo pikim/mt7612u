@@ -39,7 +39,7 @@ extern INT RtmpIoctl_rt_ioctl_siwauth(
 
 
 INT CFG80211DRV_IoctlHandle(
-	IN	struct rtmp_adapter			*pAd,
+	IN	struct rtmp_adapter		*pAd,
 	IN	RTMP_IOCTL_INPUT_STRUCT	*wrq,
 	IN	INT						cmd,
 	IN	USHORT					subcmd,
@@ -92,6 +92,7 @@ INT CFG80211DRV_IoctlHandle(
 			if (CFG80211DRV_StaGet(pAd, pData) != TRUE)
 				return NDIS_STATUS_FAILURE;
 			break;
+
 		case CMD_RTPRIV_IOCTL_80211_STA_KEY_ADD:
 			CFG80211DRV_StaKeyAdd(pAd, pData);
 			break;
@@ -180,7 +181,7 @@ INT CFG80211DRV_IoctlHandle(
 			break;
 
 		case CMD_RTPRIV_IOCTL_80211_CHANNEL_LIST_SET:
-			return CFG80211DRV_OpsScanSetSpecifyChannel(pAd,pData, Data);
+			return CFG80211DRV_OpsScanSetSpecifyChannel(pAd, pData, Data);
 
 #ifdef CONFIG_AP_SUPPORT
 		case CMD_RTPRIV_IOCTL_80211_BEACON_SET:
@@ -205,33 +206,33 @@ INT CFG80211DRV_IoctlHandle(
 		}
 			break;
 
-                case CMD_RTPRIV_IOCTL_80211_AP_KEY_ADD:
-                        CFG80211DRV_ApKeyAdd(pAd, pData);
-                        break;
+		case CMD_RTPRIV_IOCTL_80211_AP_KEY_ADD:
+			CFG80211DRV_ApKeyAdd(pAd, pData);
+			break;
 
-                case CMD_RTPRIV_IOCTL_80211_RTS_THRESHOLD_ADD:
-                        CFG80211DRV_RtsThresholdAdd(pAd, Data);
-                        break;
+		case CMD_RTPRIV_IOCTL_80211_RTS_THRESHOLD_ADD:
+			CFG80211DRV_RtsThresholdAdd(pAd, Data);
+			break;
 
-                case CMD_RTPRIV_IOCTL_80211_FRAG_THRESHOLD_ADD:
-                        CFG80211DRV_FragThresholdAdd(pAd, Data);
-                        break;
+		case CMD_RTPRIV_IOCTL_80211_FRAG_THRESHOLD_ADD:
+			CFG80211DRV_FragThresholdAdd(pAd, Data);
+			break;
 
-                case CMD_RTPRIV_IOCTL_80211_AP_KEY_DEL:
-                        CFG80211DRV_ApKeyDel(pAd, pData);
-                        break;
+		case CMD_RTPRIV_IOCTL_80211_AP_KEY_DEL:
+			CFG80211DRV_ApKeyDel(pAd, pData);
+			break;
 
-                case CMD_RTPRIV_IOCTL_80211_AP_KEY_DEFAULT_SET:
-                        CFG80211_setApDefaultKey(pAd, Data);
-                        break;
+		case CMD_RTPRIV_IOCTL_80211_AP_KEY_DEFAULT_SET:
+			CFG80211_setApDefaultKey(pAd, Data);
+			break;
 
-                case CMD_RTPRIV_IOCTL_80211_PORT_SECURED:
-                        CFG80211_StaPortSecured(pAd, pData, Data);
-                        break;
+		case CMD_RTPRIV_IOCTL_80211_PORT_SECURED:
+			CFG80211_StaPortSecured(pAd, pData, Data);
+			break;
 
-                case CMD_RTPRIV_IOCTL_80211_AP_STA_DEL:
-                        CFG80211_ApStaDel(pAd, pData);
-                        break;
+		case CMD_RTPRIV_IOCTL_80211_AP_STA_DEL:
+			CFG80211_ApStaDel(pAd, pData);
+			break;
 #endif /* CONFIG_AP_SUPPORT */
 
 		case CMD_RTPRIV_IOCTL_80211_CHANGE_BSS_PARM:
@@ -244,14 +245,14 @@ INT CFG80211DRV_IoctlHandle(
 		case CMD_RTPRIV_IOCTL_80211_BITRATE_SET:
 			break;
 
-        	case CMD_RTPRIV_IOCTL_80211_RESET:
-            		CFG80211_reSetToDefault(pAd);
-            		break;
+		case CMD_RTPRIV_IOCTL_80211_RESET:
+			CFG80211_reSetToDefault(pAd);
+			break;
 
 #ifdef RT_CFG80211_P2P_CONCURRENT_DEVICE
-                case CMD_RTPRIV_IOCTL_80211_P2PCLI_ASSSOC_IE_SET:
-                        CFG80211DRV_SetP2pCliAssocIe(pAd, pData, Data);
-                        break;
+		case CMD_RTPRIV_IOCTL_80211_P2PCLI_ASSSOC_IE_SET:
+			CFG80211DRV_SetP2pCliAssocIe(pAd, pData, Data);
+			break;
 #endif /* RT_CFG80211_P2P_CONCURRENT_DEVICE */
 
 		case CMD_RTPRIV_IOCTL_80211_VIF_ADD:
@@ -259,9 +260,9 @@ INT CFG80211DRV_IoctlHandle(
 				return NDIS_STATUS_FAILURE;
 			break;
 
-	        case CMD_RTPRIV_IOCTL_80211_VIF_DEL:
+		case CMD_RTPRIV_IOCTL_80211_VIF_DEL:
 			RTMP_CFG80211_VirtualIF_Remove(pAd, pData, Data);
-            		break;
+			break;
 
 
 #ifdef RT_CFG80211_ANDROID_PRIV_LIB_SUPPORT
@@ -277,24 +278,24 @@ INT CFG80211DRV_IoctlHandle(
 #endif /* RT_P2P_SPECIFIC_WIRELESS_EVENT */
 
 #ifdef RFKILL_HW_SUPPORT
-				case CMD_RTPRIV_IOCTL_80211_RFKILL:
-				{
-					uint32_t data = 0;
-					BOOLEAN active;
+		case CMD_RTPRIV_IOCTL_80211_RFKILL:
+		{
+			uint32_t data = 0;
+			BOOLEAN active;
 
-					/* Read GPIO pin2 as Hardware controlled radio state */
-					RTMP_IO_READ32(pAd, GPIO_CTRL_CFG, &data);
-					active = !!(data & 0x04);
+			/* Read GPIO pin2 as Hardware controlled radio state */
+			RTMP_IO_READ32(pAd, GPIO_CTRL_CFG, &data);
+			active = !!(data & 0x04);
 
-					if (!active)
-					{
-						RTMPSetLED(pAd, LED_RADIO_OFF);
-						*(UINT8 *)pData = 0;
-					}
-					else
-						*(UINT8 *)pData = 1;
-				}
-					break;
+			if (!active)
+			{
+				RTMPSetLED(pAd, LED_RADIO_OFF);
+				*(UINT8 *)pData = 0;
+			}
+			else
+				*(UINT8 *)pData = 1;
+		}
+			break;
 #endif /* RFKILL_HW_SUPPORT */
 
 		default:
