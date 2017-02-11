@@ -358,9 +358,9 @@ struct sk_buff *duplicate_pkt(
 		MEM_DBG_PKT_ALLOC_INC(skb);
 
 		skb_reserve(skb, 2);
-		memmove(skb->tail, pHeader802_3, HdrLen);
+		memmove(GET_OS_PKT_DATATAIL(skb), pHeader802_3, HdrLen);
 		skb_put(skb, HdrLen);
-		memmove(skb->tail, pData, DataSize);
+		memmove(GET_OS_PKT_DATATAIL(skb), pData, DataSize);
 		skb_put(skb, DataSize);
 		skb->dev = pNetDev;
 		pPacket = skb;
@@ -421,12 +421,12 @@ struct sk_buff *duplicate_pkt_with_VLAN(
 		/* copy header (maybe +VLAN tag) */
 		VLAN_Size = VLAN_8023_Header_Copy(VLAN_VID, VLAN_Priority,
 						  pHeader802_3, HdrLen,
-						  skb->tail, FromWhichBSSID,
+						  GET_OS_PKT_DATATAIL(skb), FromWhichBSSID,
 						  TPID);
 		skb_put(skb, HdrLen + VLAN_Size);
 
 		/* copy data body */
-		memmove(skb->tail, pData, DataSize);
+		memmove(GET_OS_PKT_DATATAIL(skb), pData, DataSize);
 		skb_put(skb, DataSize);
 		skb->dev = pNetDev;	/*get_netdev_from_bssid(pAd, FromWhichBSSID); */
 		pPacket = skb;
@@ -547,7 +547,7 @@ struct sk_buff *ClonePacket(
 		pClonedPkt->dev = pRxPkt->dev;
 		pClonedPkt->data = pData;
 		pClonedPkt->len = DataSize;
-		pClonedPkt->tail = pClonedPkt->data + pClonedPkt->len;
+		skb_set_tail_pointer(pClonedPkt, DataSize);
 		ASSERT(DataSize < 1530);
 	}
 	return pClonedPkt;
@@ -591,7 +591,7 @@ void wlan_802_11_to_802_3_packet(
 	pOSPkt->dev = pNetDev;
 	pOSPkt->data = pData;
 	pOSPkt->len = DataSize;
-	pOSPkt->tail = pOSPkt->data + pOSPkt->len;
+	skb_set_tail_pointer(pOSPkt, DataSize);
 
 	/* copy 802.3 header */
 #ifdef CONFIG_AP_SUPPORT
